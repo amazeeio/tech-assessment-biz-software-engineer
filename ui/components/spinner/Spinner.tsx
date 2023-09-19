@@ -1,9 +1,13 @@
 import CircularProgress from "@mui/material/CircularProgress";
 import React from "react";
 
-const Spinner = () => {
+interface SpinnerProps {
+  className?: string;
+}
+
+const Spinner = ({ className }: SpinnerProps) => {
   return (
-    <div className="flex justify-center items-center">
+    <div className={`flex justify-center items-center ${className}`}>
       <CircularProgress />
     </div>
   );

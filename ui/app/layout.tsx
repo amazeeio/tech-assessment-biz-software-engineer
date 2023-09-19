@@ -18,10 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <AppoloWrapper>
-          <h1 className="text-center mt-6 font-bold text-3xl">Book List</h1>
-          {children}
-        </AppoloWrapper>
+        <AppoloWrapper>{children}</AppoloWrapper>
       </body>
     </html>
   );
