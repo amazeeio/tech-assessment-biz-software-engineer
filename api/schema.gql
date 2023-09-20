@@ -9,7 +9,6 @@ type BookDTO {
 }
 
 type Query {
-  hello(name: String): String!
   getBooks: [BookDTO!]!
 }
 
