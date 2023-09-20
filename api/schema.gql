@@ -14,7 +14,7 @@ type Query {
 }
 
 type Mutation {
-  createBook(title: String!, author: String!): Boolean!
+  createBook(title: String!, author: String!): BookDTO!
   updateBook(id: String!, title: String!, author: String!): Boolean!
   deleteBook(id: String!): Boolean!
 }

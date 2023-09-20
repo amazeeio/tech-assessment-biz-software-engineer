@@ -17,18 +17,18 @@ export class BooksResolver {
     return this.booksService.getBooks();
   }
 
-  @Mutation(() => Boolean)
+  @Mutation(() => BookDTO)
   createBook(
     @Args('title') title: string,
     @Args('author') author: string,
-  ): boolean {
+  ): BookDTO {
     const newBook: BookDTO = {
       id: (this.getBooks().length + 1).toString(),
       title,
       author,
     };
     this.booksService.createBook(newBook);
-    return true;
+    return newBook;
   }
 
   @Mutation(() => Boolean)

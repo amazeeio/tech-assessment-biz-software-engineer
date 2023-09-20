@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 import gql from "graphql-tag";
 import Table from "@mui/material/Table";
@@ -13,17 +13,6 @@ import TableFooter from "@mui/material/TableFooter";
 import TablePagination from "@mui/material/TablePagination";
 import Button from "@mui/material/Button";
 import { Book } from "@/types/book";
-import Spinner from "../spinner/Spinner";
-
-const BOOKS_QUERY = gql`
-  query {
-    getBooks {
-      id
-      title
-      author
-    }
-  }
-`;
 
 const DELETE_BOOK_MUTATION = gql`
   mutation deleteBook($id: String!) {
@@ -31,22 +20,21 @@ const DELETE_BOOK_MUTATION = gql`
   }
 `;
 
-const BookList = () => {
+interface BookListProps {
+  books: Book[];
+  setBooks: Dispatch<SetStateAction<Book[]>>;
+  setDeleteSuccessMessage: Dispatch<SetStateAction<boolean | null>>;
+}
+
+const BookList = ({
+  books,
+  setBooks,
+  setDeleteSuccessMessage,
+}: BookListProps) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(3);
-  const [books, setBooks] = useState([]);
 
   const [deleteBook] = useMutation(DELETE_BOOK_MUTATION);
-  const { loading, error, data } = useQuery(BOOKS_QUERY);
-
-  useEffect(() => {
-    if (data && data.getBooks) {
-      setBooks(data.getBooks);
-    }
-  }, [data]);
-
-  if (loading) return <Spinner />;
-  if (error) return <p>Error: {error.message}</p>;
 
   const handleChangePage = (
     event: React.MouseEvent<HTMLButtonElement> | null,
@@ -74,10 +62,12 @@ const BookList = () => {
       });
 
       if (res.data.deleteBook) {
-        setBooks((prevBooks) =>
+        setBooks((prevBooks: Book[]) =>
           prevBooks.filter((book: Book) => book.id !== row.id)
         );
+        setDeleteSuccessMessage(true);
       } else {
+        setDeleteSuccessMessage(false);
         console.log("Book was unsuccessfully deleted");
       }
     } catch (error) {
@@ -89,9 +79,13 @@ const BookList = () => {
     <TableContainer component={Paper}>
       <Table>
         <TableHead>
-          <TableRow className="bg-[#1976d2]">
-            <TableCell className="!text-white">TITLE</TableCell>
-            <TableCell className="!text-white">AUTHOR</TableCell>
+          <TableRow className="bg-custom-blue">
+            <TableCell className="!text-white" width={400}>
+              TITLE
+            </TableCell>
+            <TableCell className="!text-white" width={400}>
+              AUTHOR
+            </TableCell>
             <TableCell className="!text-white" align="right">
               DELETE ACTION
             </TableCell>
@@ -103,13 +97,13 @@ const BookList = () => {
             : books
           ).map((row: Book) => (
             <TableRow key={row.id}>
-              <TableCell>{row.title}</TableCell>
-              <TableCell>{row.author}</TableCell>
+              <TableCell width={400}>{row.title}</TableCell>
+              <TableCell width={400}>{row.author}</TableCell>
               <TableCell align="right">
                 <Button
                   onClick={(e) => onButtonClick(e, row)}
                   variant="contained"
-                  className="bg-[#1976d2]"
+                  className="bg-custom-blue"
                 >
                   Delete
                 </Button>
