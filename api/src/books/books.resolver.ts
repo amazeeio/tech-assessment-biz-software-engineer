@@ -31,6 +31,7 @@ export class BooksResolver {
     return newBook;
   }
 
+  // I didn't realize from the description that only add and delete are needed; this endpoint may not be necessary.
   @Mutation(() => Boolean)
   updateBook(
     @Args('id') id: string,
