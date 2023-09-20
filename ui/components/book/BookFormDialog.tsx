@@ -15,7 +15,7 @@ interface BookFormDialogProps {
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
   setBooks: Dispatch<SetStateAction<Book[]>>;
-  setSuccessMessage: Dispatch<SetStateAction<boolean | null>>;
+  setAddSuccessMessage: Dispatch<SetStateAction<boolean | null>>;
 }
 
 const CREATE_BOOK_MUTATION = gql`
@@ -32,7 +32,7 @@ const BookFormDialog = ({
   open,
   setOpen,
   setBooks,
-  setSuccessMessage,
+  setAddSuccessMessage,
 }: BookFormDialogProps) => {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
@@ -45,7 +45,7 @@ const BookFormDialog = ({
 
   const handleClose = () => {
     setOpen(false);
-    setSuccessMessage(null);
+    setAddSuccessMessage(null);
   };
 
   const handleAddClick = async () => {
@@ -61,10 +61,10 @@ const BookFormDialog = ({
 
       if (newBook) {
         setBooks((prevBooks: Book[]) => [...prevBooks, newBook]);
-        setSuccessMessage(true);
+        setAddSuccessMessage(true);
         setOpen(false);
       } else {
-        setSuccessMessage(false);
+        setAddSuccessMessage(false);
         console.error("Failed to create the book.");
       }
     } catch (error) {
@@ -83,6 +83,7 @@ const BookFormDialog = ({
             fullWidth
             variant="standard"
             className="mt-6"
+            data-testid="title-input"
             onChange={(e) => setTitle(e.target.value)}
           />
           <TextField
@@ -90,12 +91,15 @@ const BookFormDialog = ({
             fullWidth
             variant="standard"
             className="mt-6"
+            data-testid="author-input"
             onChange={(e) => setAuthor(e.target.value)}
           />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleAddClick}>Add</Button>
+          <Button onClick={handleAddClick} data-testid="add-book-button">
+            Add
+          </Button>
         </DialogActions>
       </Dialog>
     </div>

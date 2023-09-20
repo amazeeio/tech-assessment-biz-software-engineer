@@ -76,7 +76,7 @@ const BookList = ({
   };
 
   return (
-    <TableContainer component={Paper}>
+    <TableContainer component={Paper} data-testid="book-list">
       <Table>
         <TableHead>
           <TableRow className="bg-custom-blue">
@@ -104,6 +104,7 @@ const BookList = ({
                   onClick={(e) => onButtonClick(e, row)}
                   variant="contained"
                   className="bg-custom-blue"
+                  data-testid="delete-button"
                 >
                   Delete
                 </Button>

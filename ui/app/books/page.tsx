@@ -24,7 +24,9 @@ const BOOKS_QUERY = gql`
 const Books = () => {
   const [open, setOpen] = React.useState<boolean>(false);
   const [books, setBooks] = useState<Book[]>([]);
-  const [successMessage, setSuccessMessage] = useState<boolean | null>(null);
+  const [addSuccessMessage, setAddSuccessMessage] = useState<boolean | null>(
+    null
+  );
   const [deleteSuccessMessage, setDeleteSuccessMessage] = useState<
     boolean | null
   >(null);
@@ -45,7 +47,7 @@ const Books = () => {
   };
 
   const handleClose = () => {
-    setSuccessMessage(null);
+    setAddSuccessMessage(null);
   };
 
   const handleDeleteClose = () => {
@@ -56,7 +58,11 @@ const Books = () => {
     <div className="w-2/3 m-auto mt-14">
       <h1 className="text-center mb-6 font-bold text-3xl">Book List</h1>
       <div className="w-100 mb-6 text-right">
-        <Button onClick={handleNewBookClick} variant="outlined">
+        <Button
+          data-testid="open-dialog"
+          onClick={handleNewBookClick}
+          variant="outlined"
+        >
           ADD NEW BOOK
         </Button>
       </div>
@@ -64,21 +70,22 @@ const Books = () => {
         open={open}
         setOpen={setOpen}
         setBooks={setBooks}
-        setSuccessMessage={setSuccessMessage}
+        setAddSuccessMessage={setAddSuccessMessage}
       />
       <BookList
         books={books}
         setBooks={setBooks}
         setDeleteSuccessMessage={setDeleteSuccessMessage}
       />
-      {successMessage ? (
+      {addSuccessMessage ? (
         <Snackbar open={true} onClose={handleClose} autoHideDuration={6000}>
           <Alert
             onClose={handleClose}
-            severity={`${successMessage ? "success" : "error"}`}
+            severity={`${addSuccessMessage ? "success" : "error"}`}
             sx={{ width: "100%" }}
+            data-testid="add-success-message"
           >
-            {successMessage
+            {addSuccessMessage
               ? "Book Successfully Added"
               : "Oops! Book Couldn't Be Added"}
           </Alert>
@@ -95,6 +102,7 @@ const Books = () => {
             onClose={handleDeleteClose}
             severity={`${deleteSuccessMessage ? "success" : "error"}`}
             sx={{ width: "100%" }}
+            data-testid="delete-success-message"
           >
             {deleteSuccessMessage
               ? "Book Successfully Deleted"
