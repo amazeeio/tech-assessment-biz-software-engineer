@@ -9,6 +9,7 @@ import Spinner from "@/components/spinner/Spinner";
 import Snackbar, { SnackbarOrigin } from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 import { Book } from "@/types/book";
+import ErrorPage from "@/components/error/ErrorPage";
 
 const BOOKS_QUERY = gql`
   query {
@@ -37,7 +38,7 @@ const Books = () => {
   }, [data]);
 
   if (loading) return <Spinner className="h-screen" />;
-  if (error) return <p>Error: {error.message}</p>;
+  if (error) return <ErrorPage />;
 
   const handleNewBookClick = () => {
     setOpen(true);
