@@ -7,7 +7,7 @@ This project is a frontend application built with Next.js. It allows users to vi
 To get started with this project, follow these steps:
 
 ```bash
-git clone <repository_url>
+git clone https://github.com/Ognjen1994/tech-assessment-biz-software-engineer.git
 ```
 
 ```bash
@@ -18,7 +18,7 @@ npm install
 npm run dev
 ```
 
-Open your web browser and access the development server at http://localhost:3001.
+Open your web browser and access the development server at http://localhost:3001/books.
 
 ## Scripts
 
