@@ -6,7 +6,7 @@ import Button from "@mui/material/Button";
 import BookFormDialog from "@/components/book/BookFormDialog";
 import { gql, useQuery } from "@apollo/client";
 import Spinner from "@/components/spinner/Spinner";
-import Snackbar, { SnackbarOrigin } from "@mui/material/Snackbar";
+import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 import { Book } from "@/types/book";
 import ErrorPage from "@/components/error/ErrorPage";

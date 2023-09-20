@@ -1,7 +1,6 @@
 "use client";
-import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { useMutation, useQuery } from "@apollo/client";
-import gql from "graphql-tag";
+import React, { Dispatch, SetStateAction, useState } from "react";
+import { gql, useMutation } from "@apollo/client";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";

@@ -1,3 +1,4 @@
+import React from "react";
 import { AppoloWrapper } from "@/providers/AppoloWrapper";
 import "./globals.css";
 import type { Metadata } from "next";
